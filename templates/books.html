@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+		}
+		.hero{
+			height: 100%;
+			width: 100%;
+			background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('{{url_for('static', filename= 'images/login-page.jpg')}}');
+			max-width: 100%;
+			max-height: 100%;
+			background-position: center;
+			background-size: cover;
+			position: absolute;
+		}
+		.user_name{
+			margin-top: 30px;
+			margin-left: 50px;
+			color: white;
+		}
+		.logout{
+			float: right;
+			margin-right: 50px;
+		}
+		.search_box{
+			width: 520px;
+			height: 25px;
+			top: 0%;
+			position: relative;
+			margin: 6% auto;
+			/*background: #fff;*/
+			padding: 5px;
+			overflow: hidden;
+		}
+		.listItems{
+			width: 700px;
+			max-height: 350px;
+			height: auto;
+			top: 0%;
+			margin-top: 0px;
+			position: relative;
+			margin: 6% auto;
+			padding: 5px;
+			overflow-y: scroll;
+		}
+		.submit-button{
+			height: 27px;
+			width: 80px;
+			font-size: 16px;
+			border-radius: 15px;
+			cursor: pointer;
+			background: linear-gradient(to right, #ff105f, #ffad06);
+			border: 0;
+			outline: none;
+		}
+		li{
+			display: block;
+			width: 95%;
+			padding: 10px;
+			padding-left: 20px;
+			background-color: lightgrey;
+			border-radius: 8px;
+			border:1px solid white;
+			text-align: center;
+		}
+		a.myBlock{
+			color: #EE7600;
+			font-family: Goudy Old Style;
+			font-size: 24px;
+			display: block;
+		}
+		li:hover{
+			background-color: grey;
+			color: orange;
+		}
+		a:hover{
+			color: orange;
+		}
+	</style>
+</head>
+<body>
+	<div class="hero">
+		<div class="user_name">
+			<b><u>Logged in as {{ user }}</u></b>
+			<div class="logout">
+				<a href="{{url_for('logout')}}"><button class="submit-button"><b>LOGOUT</b></button></a>
+			</div>
+		</div>
+		<div class="search_box">
+			<form action="{{url_for('search')}}" method="post">
+				<input style="width: 420px;height: auto;padding-left: 10px;font-size: 20px;" type="text" name="book_info" placeholder="Enter ISBN number ,Title or Author of the Book" required>
+				<button type="submit" class="submit-button"><b>SEARCH</b></button>
+			</form>
+		</div>
+		<div class="listItems">
+			{%if books == None%}
+				<h1 style="color: white;text-align: center;">OOPS!.. NO SUCH BOOK FOUND!</h1>
+			{%else%}
+				<ul>
+					{%for book in books%}
+					<li><a class="myBlock" href="{{url_for('details',selected_book=book.id)}}">{{book.title}}</a></li>{%endfor%}
+				</ul>
+			{%endif%}
+		</div>
+	</div>
+</body>
+</html>

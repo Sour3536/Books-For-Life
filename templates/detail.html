@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BOOK DETAIL</title>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+		}
+		.hero{
+			height: 100%;
+			width: 100%;
+			background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('{{url_for('static',filename= 'images/book-detail.jpg')}}');
+			/*background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('detail.jpg');*/
+			max-width: 100%;
+			max-height: 100%;
+			background-position: center;
+			background-size: cover;
+			position: absolute;
+		}
+		.right,.middle,.left {
+		  height: 100%;
+		  width: 100%;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  overflow-x: hidden;
+		}
+		.left {
+		  text-align: center;
+		  width: 35%;
+		  left: 0;
+		}
+		.middle{
+	      text-align: center;
+		  left: 35%;
+		  width: 30%;
+		}
+		.right {
+		  text-align: center;
+		  left: 65%;
+		  width: 35%;
+		}
+		.title{
+			position: relative;
+			margin: 6% auto;
+			left: 3%;
+			color: white;
+			text-align: center;
+			top: 25%;
+			font-size: 30px;
+			padding: 5px;
+			overflow: hidden;
+		}
+		.author{
+			position: relative;
+			margin: 6% auto;
+			color: white;
+			text-align: left;
+			top: 50%;
+			left: 16%;
+			font-size: 15px;
+			padding: 5px;
+			overflow: hidden;
+		}
+		.isbn{
+			float: right;
+			margin-top: 8px;
+			font-size: 15px;
+			margin-right: 120px;
+		}
+		.listItems{
+			width: 300px;
+			max-height: 400px;
+			height: auto;
+			top: 0%;
+			margin-top: 0px;
+			position: relative;
+			margin: 6% auto;
+			/*background: #fff;*/
+			padding: 5px;
+			overflow-y: scroll;
+		}
+		li{
+			display: block;
+			width: 90%;
+			padding: 10px;
+			padding-left: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			border:1px solid black;
+		}
+		.form-box{
+			width: 300px;
+			height: 350px;
+			border-radius: 20px;
+			position: relative;
+			margin: 6% auto;
+			background: #fff;
+			padding: 5px;
+			overflow: hidden;
+		}
+		.input-group{
+			top: 10px;
+			left: 15px;
+			position: absolute;
+			width: 280px;
+			transition: .5s;
+		}
+		.input-field{
+			width: 95%;
+			height: 100px;
+			padding: 30px 0;
+			margin: 20px 0;
+			border: 1px solid #999;
+			background: transparent;
+			word-break: break-word;
+		}
+		.submit-btn{
+			width: 75%;
+			margin: 50px auto;
+			padding: 10px 30px;
+			cursor: pointer;
+			display: block;
+			background: linear-gradient(to right, #ff105f, #ffad06);
+			border: 0;
+			outline: none;
+			border-radius: 30px;
+		}
+		.rating{
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			top: 60%;
+			left: 45%;
+			transform: translate(-50%,-50%) rotateY(180deg);
+			display: flex;
+		}
+		.rating input{
+			display: none;
+		}
+		.rating label{
+			display: block;
+			cursor: pointer;
+			width: 50px;
+		}
+		.rating label:before{
+			content: '\f005';
+			font-family: fontAwesome;
+			position: absolute;
+			display: block;
+			font-size: 30px;
+			color: #101010;
+		}
+		.rating label:after{
+			content: '\f005';
+			font-family: fontAwesome;
+			position: absolute;
+			display: block;
+			font-size: 30px;
+			color: #1f9cff;
+			top: 0px;
+			opacity: 0;
+			transition: .5s;
+			text-shadow: 0 2px 5px rgba(0,0,0,.5);
+		}
+		.rating label:hover:after,
+		.rating label:hover ~ label:after,
+		.rating input:checked ~ label:after{
+			opacity: 1;
+		}
+		.logout{
+			margin-top: 30px;
+			float: right;
+			margin-right: 50px;
+		}
+		.submit-button{
+			height: 27px;
+			width: 80px;
+			font-size: 16px;
+			border-radius: 15px;
+			cursor: pointer;
+			background: linear-gradient(to right, #ff105f, #ffad06);
+			border: 0;
+			outline: none;
+		}
+		li.myBlock{
+			color: red;
+			background-color: lightgrey;
+			font-style: italic;
+			font-size: 15px;
+			display: block;
+			text-align: left;
+		}
+		textarea{
+			height: 180px;
+			width: 250px;
+		}
+	</style>
+</head>
+<body>
+	<div class="hero">
+		<div class="left">
+			<h1 style="margin-top: 20%;color: cyan;">Submit a review</h1>
+			<div class="form-box">
+				<form id="login" class="input-group" action="{{url_for('submit_rev',book_id=book.id)}}" method="post">
+					<!-- <input type="text" class="input-field" name="review" autocomplete="off" placeholder="Review Here..." required> -->
+					<textarea name="review" placeholder="Review Here..."></textarea>
+					<div class="rating">
+						<input type="radio" name="star" id="star1" value="star1" required><label for="star1"></label>
+						<input type="radio" name="star" id="star2" value="star2"><label for="star2"></label>
+						<input type="radio" name="star" id="star3" value="star3"><label for="star3"></label>
+						<input type="radio" name="star" id="star4" value="star4"><label for="star4"></label>
+						<input type="radio" name="star" id="star5" value="star5"><label for="star5"></label>
+					</div>
+					<button type="submit" class="submit-btn">Submit</button>
+				</form>
+			</div>
+		</div>
+		<div class="middle">
+			<div class="title">
+				{{book.title}}<br><br><br><p style="font-size: 15px;">Goodreads reviews : {{n}}<br>Goodreads rating : {{a}}</p>
+			</div>
+			<div class="author">
+				Author : {{book.author}}<br>Year : {{book.year}}
+				<div class="isbn">
+					ISBN :<br>
+					{{book.isbn}}
+				</div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="logout">
+				<a href="{{url_for('logout')}}"><button class="submit-button"><b>LOGOUT</b></button></a>
+			</div>
+			<h1 style="margin-top: 20%;color: cyan;">Previous Ratings</h1>
+			<div class="listItems">
+				{%if all_review == None%}
+					<h1 style="color: white;text-align: center;">OOPS!.. NO Reviews Yet</h1>
+				{%else%}
+					<ul>
+						{%for one_review in all_review%}
+						<li class="myBlock"><u>User</u> : {{one_review.user_id}}<br><u>Review</u> : {{one_review.review}}<br><u>Rating</u> : {{one_review.rating}}</li>{%endfor%}
+					</ul>
+				{%endif%}
+			</div>
+		</div>
+	</div>
+</body>
+</html>

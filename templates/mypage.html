@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+		}
+		.hero{
+			height: 100%;
+			width: 100%;
+			background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('{{url_for('static', filename= 'images/login-page.jpg')}}');
+			max-width: 100%;
+			max-height: 100%;
+			background-position: center;
+			background-size: cover;
+			position: absolute;
+		}
+		h1{
+			color: #fff;
+			font-size: 45px;
+			text-align: center;
+			margin-top: 200px;
+  			font-family: Goudy Old Style;
+  			font-weight: bold;
+  			text-shadow: 4px 4px black;
+		}
+	</style>
+</head>
+<body>
+	<div class="hero">
+		<h1>{{message}}</h1>
+	</div>
+</body>
+</html>
