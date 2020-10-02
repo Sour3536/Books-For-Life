@@ -1,3 +1,6 @@
+#code by Sourabh Singhal 
+#hope you find it useful
+
 import os
 import requests
 
@@ -39,6 +42,7 @@ def login():
 	else:
 		return render_template('login.html')
 
+
 @app.route("/logging",methods=["POST"])
 def logging():
 	u_id=request.form.get("id")
@@ -71,6 +75,7 @@ def user():
 	else:
 		return redirect('/login')
 
+#logout
 @app.route("/logout")
 def logout():
 	session.pop('user',None)
