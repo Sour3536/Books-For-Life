@@ -6,7 +6,8 @@
 		*{
 			margin: 0;
 			padding: 0;
-			font-family: sans-serif;
+			font-family: Montserrat;
+/* 			font family is changed */
 		}
 		.hero{
 			height: 100%;
@@ -79,7 +80,7 @@
 			color: orange;
 		}
 		a:hover{
-			color: orange;
+			color: #ff5c33;
 		}
 	</style>
 </head>
@@ -99,7 +100,7 @@
 		</div>
 		<div class="listItems">
 			{%if books == None%}
-				<h1 style="color: white;text-align: center;">OOPS!.. NO SUCH BOOK FOUND!</h1>
+				<h1 style="color: white;text-align: center;">OOPS!... NO SUCH BOOK FOUND!</h1>
 			{%else%}
 				<ul>
 					{%for book in books%}
